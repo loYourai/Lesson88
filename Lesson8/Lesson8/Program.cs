@@ -7,13 +7,29 @@
 // 1. Add meeting - without validation
 // 0. Exit calendar
 
+using System.Threading.Channels;
 using static System.Net.Mime.MediaTypeNames;
 
 // meeting start time, duration, room, name
 
-const string FileName = "meetings.csv";
+const string FileName = "meetings.txt";
 const int MaximumRoomLenght = 25;
 const int MaximumNameLenght = 50;
+
+
+    void ShowAll2()
+    {
+        
+       List<String> temp = new List<String>();
+
+    if (s.IndexOf(Console.ReadLine()) != -1)
+    {
+        StreamWriter file = new System.IO.StreamWriter("D:\\Beetroot\\Lesson88\\Lesson8\\Lesson8\\bin\\Debug\\net6.0");
+        temp.ForEach(file.WriteLine);
+        file.Close();
+    }
+
+}
 
 void ShowAll()
 {
@@ -31,7 +47,8 @@ void ShowAll()
         Console.WriteLine($"{meetingContent[0],20}" +
               $"{meetingContent[1],20}" +
               $"{meetingContent[2],20}" +
-              $"{meetingContent[3],20}");
+              $"{meetingContent[3],20}" +
+              $"{meetingContent[4],20}");
     }
 
     //Console.WriteLine("Press any key to return to menu...");
@@ -98,12 +115,15 @@ void Exit()
     Environment.Exit(0);
 }
 
+
+
 void Menu()
 {
     Console.Clear();
-    Console.WriteLine("2. Show all meetings");
-    Console.WriteLine("1. Add meeting");
-    Console.WriteLine("0. Exit calendar");
+    Console.WriteLine("3. Show all meetings");
+    Console.WriteLine("2. Add meeting");
+    Console.WriteLine("1. Exit calendar");
+    Console.WriteLine("0. Delete time");
 }
 
 while (true)
@@ -112,15 +132,19 @@ while (true)
     var keyInfo = Console.ReadKey();
     switch (keyInfo.Key)
     {
-        case ConsoleKey.D0:
+        case ConsoleKey.D1:
             Exit();
             break;
-        case ConsoleKey.D1:
+        case ConsoleKey.D2:
             AddMeeting();
             break;
-        case ConsoleKey.D2:
+        case ConsoleKey.D3:
             ShowAll();
+            break;
+        case ConsoleKey.D0:
+            ShowAll2();
             break;
         default: break;
     }
 }
+
