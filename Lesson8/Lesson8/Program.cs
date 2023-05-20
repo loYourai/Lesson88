@@ -7,6 +7,8 @@
 // 1. Add meeting - without validation
 // 0. Exit calendar
 
+using System.Linq;
+using System.Text;
 using System.Threading.Channels;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -17,17 +19,25 @@ const int MaximumRoomLenght = 25;
 const int MaximumNameLenght = 50;
 
 
-    void ShowAll2()
-    {
-        
-       List<String> temp = new List<String>();
+void Delete()
+{
+    
+    // var fileContent2 = File.ReadAllLines(FileName);
+    Console.WriteLine("Дата которую нужно удалить");
+    string s = Console.ReadLine();
+    string[] lines = File.ReadAllLines(FileName);
+    
 
-    if (s.IndexOf(Console.ReadLine()) != -1)
+    File.WriteAllLines(FileName, lines.Skip(1));
+    for (int i = 0; i < lines.Length; i++)
     {
-        StreamWriter file = new System.IO.StreamWriter("D:\\Beetroot\\Lesson88\\Lesson8\\Lesson8\\bin\\Debug\\net6.0");
-        temp.ForEach(file.WriteLine);
-        file.Close();
+        if (lines[i] == s) lines[i] = " ";
+        break;
     }
+    Console.WriteLine();
+  
+
+
 
 }
 
@@ -47,8 +57,7 @@ void ShowAll()
         Console.WriteLine($"{meetingContent[0],20}" +
               $"{meetingContent[1],20}" +
               $"{meetingContent[2],20}" +
-              $"{meetingContent[3],20}" +
-              $"{meetingContent[4],20}");
+              $"{meetingContent[3],20}");
     }
 
     //Console.WriteLine("Press any key to return to menu...");
@@ -70,14 +79,33 @@ void AddMeeting() // meeting start time, duration, room, name
         ShowError("Error! Invalid Start date");
         return;
     }
+    
+    
 
     Console.WriteLine("Duration in minutes: ");
     var durationParsingResult = int.TryParse(Console.ReadLine(), out var duration);
+    string s1 = duration.ToString();
+    string[] lines = File.ReadAllLines(FileName);
+    
     if (!durationParsingResult)
     {
         ShowError("Error! Invalid meeting duration");
         return;
     }
+
+    if (lines[0] == s1)
+    {
+        ShowError("Error!this time is already taken!");
+        return;
+    }
+    
+
+    //var a2 = File.ReadAllLines(FileName);
+    // var b = duration;
+    //  if (a = b)
+    // {
+    //      throw new ArgumentException("Invalid name");
+    //  }
 
     Console.WriteLine("Room: ");
     var room = Console.ReadLine();
@@ -142,9 +170,8 @@ while (true)
             ShowAll();
             break;
         case ConsoleKey.D0:
-            ShowAll2();
+            Delete();
             break;
         default: break;
     }
 }
-
